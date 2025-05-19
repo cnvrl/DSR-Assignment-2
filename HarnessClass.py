@@ -90,7 +90,7 @@ class HarnessClass():
             # Add nodes to the graph
             v0 = g.add_node(0, "V0", datetime.date(2010, 10, 30), "A")
             v1 = g.add_node(1, "V1", datetime.date(2010, 10, 30), "B")
-            print("Number of nodes:", len(g.nodeList), "\n")
+            print("Number of nodes:", len(g.node_list), "\n")
         except Exception as e:
             print("Add node error:", e)
 
