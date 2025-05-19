@@ -9,17 +9,17 @@ from typing import Dict, Set
 
 class Graph:
     def __init__(self):
-        self.nodeList: Dict[int, Node] = {}
+        self.node_list: Dict[int, Node] = {}
 
     def add_node(self, node_id: int, name: str, dob: date, suburb: str) -> Node:
-        if node_id in self.nodeList:
+        if node_id in self.node_list:
             raise Exception(f"Node with ID {node_id} already exists.")
         new_node = Node(node_id, name, dob, suburb)
-        self.nodeList[node_id] = new_node
+        self.node_list[node_id] = new_node
         return new_node
 
     def add_edge(self, from_node: Node, to_node: Node) -> None:
-        if from_node.get_id() not in self.nodeList or to_node.get_id() not in self.nodeList:
+        if from_node.get_id() not in self.node_list or to_node.get_id() not in self.node_list:
             raise Exception("One or both nodes not found in the graph.")
 
         if to_node.get_id() not in from_node.adj:
@@ -34,24 +34,24 @@ class Graph:
 
     def remove_node(self, node: Node) -> None:
         node_id = node.get_id()
-        if node_id not in self.nodeList:
+        if node_id not in self.node_list:
             raise Exception("Node not found in graph.")
 
         # Remove this node from other nodes' adjacency lists
-        for other in self.nodeList.values():
+        for other in self.node_list.values():
             other.adj.pop(node_id, None)
 
         # Remove the node itself
-        del self.nodeList[node_id]
+        del self.node_list[node_id]
 
     def get_neighbors(self, node: Node) -> Set[Node]:
-        if node.get_id() not in self.nodeList:
+        if node.get_id() not in self.node_list:
             raise Exception("Node not found in graph.")
         return {edge.friend for edge in node.adj.values()}
 
     def __str__(self) -> str:
         result = []
-        for node in sorted(self.nodeList.values(), key=lambda n: n.get_id()):
+        for node in sorted(self.node_list.values(), key=lambda n: n.get_id()):
             friends = [edge.friend.get_name() for edge in node.adj.values()]
             line = f"{node.get_name()}: --> {' '.join(friends)}"
             result.append(line)
