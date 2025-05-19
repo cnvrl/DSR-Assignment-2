@@ -60,7 +60,7 @@ class HarnessClass():
         try:
             HarnessClass.n = Node(1, "B", datetime.date(2018, 10, 30), "Bonner")
             HarnessClass.n2 = Node(2, "B", datetime.date(2018, 9, 30), "Ford")
-            print(f"{HarnessClass.n.name}, {HarnessClass.n.dateOB}, {HarnessClass.n.suburb}\t")
+            print(f"{HarnessClass.n.name}, {HarnessClass.n.dob}, {HarnessClass.n.suburb}\t")
         except Exception as e:
             print(e)
 
@@ -126,19 +126,13 @@ class HarnessClass():
             neighbors = g.get_neighbors(v1)
             print("Neighbors of V1:", [n.get_name() for n in neighbors])
         except Exception as e:
-<<<<<<< HEAD
-            print(e)
-    """
-=======
             print("Get neighbors error:", e)
-
->>>>>>> 65e0cee9fc15050f1c258cc62563ef9c916f93d3
+    """
     @staticmethod
     def test_social_network():
-        """
         
-        #Testing Task 4-6: SocialNetwork functionality.
-"""
+        Testing Task 4-6: SocialNetwork functionality.
+
         try:
             driver = SocialNetwork()
             print(driver.sn)

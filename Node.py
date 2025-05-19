@@ -10,7 +10,7 @@ class Node(NodeInterface):
     @autho Zhongju Wang
     """
 
-    def __init__(self, id: int, name: str, dateOB: date, suburb: str):
+    def __init__(self, id: int, name: str, dob: date, suburb: str):
         """
         Construct a new vertex in the graph with the supplied name, dob, and suburb.
 
@@ -21,7 +21,7 @@ class Node(NodeInterface):
         """
         self.id = id
         self.name = name
-        self.dateOB = dateOB
+        self.dob = dob
         self.suburb = suburb
         self.adj: Dict[int, 'Edge'] = {}
 
@@ -32,13 +32,13 @@ class Node(NodeInterface):
         return self.name
     
     def get_date_ob(self) -> date:
-        return self.dateOB
+        return self.dob
     
     def get_suburb(self) -> str:
         return self.suburb
 
     def __str__(self) -> str:
-        return f'ID: {self.id}, Name: {self.name}, Suburb: {self.suburb}, DOB: {self.dob}'
+        return f'ID: {self.id}, Name: {self.name}, Suburb: {self.suburb}, DOB:{self.dob}'
 
     def __hash__(self) -> int:
         hash_val = 0
@@ -47,7 +47,7 @@ class Node(NodeInterface):
         for i, c in enumerate(self.name.lower()):
             hash_val += (i + 1) * ord(c) * prime
 
-        hash_val += self.dateOB.year * 17
+        hash_val += self.dob.year * 17
 
         hash_val += self.id * 13
 
@@ -56,7 +56,7 @@ class Node(NodeInterface):
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, Node):
             return NotImplemented
-        return (self.id == other.id and self.name == other.name and self.dateOB == other.dob and self.suburb == other.suburb)
+        return (self.id == other.id and self.name == other.name and self.dob == other.dob and self.suburb == other.suburb)
 
     def __lt__(self, other: object) -> bool:
         if not isinstance(other, Node):
@@ -68,7 +68,7 @@ class Edge:
         self.friend = friend
 
     def __str__(self):
-        return f"friend= {{{self.friend.id}, {self.friend.name}, {self.friend.dateOB}, {self.friend.suburb}}}"
+        return f"friend= {{{self.friend.id}, {self.friend.name}, {self.friend.dob}, {self.friend.suburb}}}"
 
 
 def main() -> None:
