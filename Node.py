@@ -53,7 +53,6 @@ class Node(NodeInterface):
 
         return hash_val
 
-
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, Node):
             return NotImplemented
