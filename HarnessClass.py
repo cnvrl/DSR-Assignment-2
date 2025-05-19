@@ -1,6 +1,6 @@
 import datetime
 from Node import Node
-from Edge import Edge
+from Node import Edge
 from Graph import Graph
 from SocialNetwork import SocialNetwork
 

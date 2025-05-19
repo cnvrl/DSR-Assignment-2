@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from datetime import date
 from typing import Set, Optional
 from Node import Node
-from Edge import Edge
+from Node import Edge
 
 class GraphInterface(ABC):
     """
