@@ -90,38 +90,49 @@ class HarnessClass():
             # Add nodes to the graph
             v0 = g.add_node(0, "V0", datetime.date(2010, 10, 30), "A")
             v1 = g.add_node(1, "V1", datetime.date(2010, 10, 30), "B")
-            print(len(g.node_list), "\t")
+            print("Number of nodes:", len(g.nodeList), "\n")
         except Exception as e:
-            print(e)
+            print("Add node error:", e)
 
         # Add and remove edges
         try:
             g.add_edge(v0, v1)
+            print("Added edge V0 <--> V1")
         except Exception as e:
-            print(e)
+            print("Add edge error:", e)
 
         try:
             g.remove_edge(v0, v1)
+            print("Removed edge V0 <--> V1")
         except Exception as e:
-            print(e)
+            print("Remove edge error:", e)
 
         # Test adding and removing nodes
         try:
             g.remove_node(v1)
+            print("Removed node V1")
         except Exception as e:
-            print(e)
+            print("Remove node error:", e)
 
         try:
             v1 = g.add_node(1, "V1", datetime.date(2010, 10, 30), "B")
+            print("Re-added node V1")
         except Exception as e:
-            print(e)
+            print("Re-add node error:", e)
 
         # Test retrieving neighbors
         try:
+            g.add_edge(v0, v1)
             neighbors = g.get_neighbors(v1)
+            print("Neighbors of V1:", [n.get_name() for n in neighbors])
         except Exception as e:
+<<<<<<< HEAD
             print(e)
     """
+=======
+            print("Get neighbors error:", e)
+
+>>>>>>> 65e0cee9fc15050f1c258cc62563ef9c916f93d3
     @staticmethod
     def test_social_network():
         """
