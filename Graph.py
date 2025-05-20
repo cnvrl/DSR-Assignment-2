@@ -29,8 +29,16 @@ class Graph:
             raise Exception("Edge already exists between nodes.")
 
     def remove_edge(self, from_node: Node, to_node: Node) -> None:
-        from_node.adj.pop(to_node.get_id(), None)
-        to_node.adj.pop(from_node.get_id(), None)
+        # Check if both nodes exist in the graph
+        if from_node.get_id() not in self.node_list or to_node.get_id() not in self.node_list:
+            raise Exception("One or both nodes not found in the graph.")
+
+        # Check if the edge exists
+        if to_node.get_id() not in from_node.adj or from_node.get_id() not in to_node.adj:
+            raise Exception("Edge does not exist between the specified nodes.")
+
+        from_node.adj.pop(to_node.get_id())
+        to_node.adj.pop(from_node.get_id())
 
     def remove_node(self, node: Node) -> None:
         node_id = node.get_id()
@@ -53,25 +61,14 @@ class Graph:
         result = []
         for node in sorted(self.node_list.values(), key=lambda n: n.get_id()):
             friends = [edge.friend.get_name() for edge in node.adj.values()]
-            line = f"{node.get_name()}: --> {' '.join(friends)}"
+            line = f"{node.get_name()}: <--> {'    '.join(friends)}"
             result.append(line)
         return "\n".join(result)
     
 
-if __name__ == "__main__":
-
+def main():
     g = Graph()
-    n1 = g.add_node(1, "Minna Whittaker", date(1980, 6, 15), "Majura")
-    n2 = g.add_node(2, "Gillian Garnett", date(1994, 11, 27), "Majura")
-    n3 = g.add_node(3, "Stephen Ernest", date(2026, 11, 1), "Canberra")
-
-    g.add_edge(n1, n2)
-    g.add_edge(n2, n3)
-
     print(g)
 
-    # Output:
-    # Minna Whittaker: --> Gillian Garnett
-    # Gillian Garnett: --> Minna Whittaker Stephen Ernest
-    # Stephen Ernest: --> Gillian Garnett
-
+if __name__ == "__main__":
+    main()

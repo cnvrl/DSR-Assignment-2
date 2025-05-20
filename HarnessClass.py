@@ -86,37 +86,38 @@ class HarnessClass():
         Testing Task 3: the Graph class.
         """
         g = Graph()
+
+        # Add nodes to the graph
         try:
-            # Add nodes to the graph
             v0 = g.add_node(0, "V0", datetime.date(2010, 10, 30), "A")
             v1 = g.add_node(1, "V1", datetime.date(2010, 10, 30), "B")
-            print("Number of nodes:", len(g.node_list), "\n")
+            print("Number of nodes:", len(g.node_list))     #expected output: 2
         except Exception as e:
             print("Add node error:", e)
 
         # Add and remove edges
         try:
             g.add_edge(v0, v1)
-            print("Added edge V0 <--> V1")
+            print("Added edge V0 <--> V1")      #expected output
         except Exception as e:
             print("Add edge error:", e)
 
         try:
             g.remove_edge(v0, v1)
-            print("Removed edge V0 <--> V1")
+            print("Removed edge V0 <--> V1")    #expected output
         except Exception as e:
             print("Remove edge error:", e)
 
         # Test adding and removing nodes
         try:
             g.remove_node(v1)
-            print("Removed node V1")
+            print("Removed node V1")        #expected output
         except Exception as e:
             print("Remove node error:", e)
 
         try:
             v1 = g.add_node(1, "V1", datetime.date(2010, 10, 30), "B")
-            print("Re-added node V1")
+            print("Re-added node V1")       #expected output
         except Exception as e:
             print("Re-add node error:", e)
 
@@ -124,9 +125,77 @@ class HarnessClass():
         try:
             g.add_edge(v0, v1)
             neighbors = g.get_neighbors(v1)
-            print("Neighbors of V1:", [n.get_name() for n in neighbors])
+            print("Neighbors of V1:", [n.get_name() for n in neighbors])        #expected output: ["V0"]
         except Exception as e:
             print("Get neighbors error:", e)
+
+        # Test string representation of the graph
+        try:
+            print("Graph representation:\n" + str(g))     #expected output: V0: --> V1 & V1: --> V0
+        except Exception as e:
+            print("Graph representation error:", e)
+
+        # Test removing a node with edges
+        try:
+            v2 = g.add_node(2, "V2", datetime.date(2010, 10, 30), "C")
+            g.add_edge(v1, v2)
+            print("Added node V2 and edge V1 <--> V2")
+            g.remove_node(v1)
+            print("Removed node V1 with edge to V2")      #expected output
+            print(g)
+        except Exception as e:
+            print("Remove node with edges error:", e)
+
+        # Test removing a non-existent node
+        try:
+            g.remove_node(v1)
+            print("Removed non-existent node V1")
+        except Exception as e:
+            print("Remove non-existent node error:", e)     #expected output
+
+        # Test adding an edge with a non-existent node
+        try:
+            g.add_edge(v0, v1)
+            print("Added edge V0 <--> V1 with non-existent node")
+        except Exception as e:
+            print("Add edge with non-existent node error:", e)      #expected output
+
+        # Test adding an edge that already exists
+        try:
+            g.add_edge(v0, v1)
+            print("Added edge V0 <--> V1 that already exists")
+        except Exception as e:
+            print("Add edge that already exists error:", e)     #expected output
+
+        # Test removing an edge that doesn't exist
+        try:
+            g.remove_edge(v0, v1)
+            print("Removed edge V0 <--> V1 that doesn't exist")
+        except Exception as e:
+            print("Remove edge that doesn't exist error:", e)       #expected output
+
+        # Test adding a node that already exists
+        try:
+            v0 = g.add_node(0, "V0", datetime.date(2010, 10, 30), "A")
+            print("Added node V0 that already exists")
+        except Exception as e:
+            print("Add node that already exists error:", e)         #expected output    
+
+        # Test adding a node with the same ID but different attributes
+        try:
+            v1 = g.add_node(1, "V1", datetime.date(2010, 10, 30), "C")
+            print("Added node V1, replacing previous attributes")       #expected output
+        except Exception as e:
+            print("Add node with same ID but different attributes error:", e)
+
+        # Test adding an edge with a non-existent node
+        try:
+            g.add_edge(v0, v3)
+            print("Added edge V0 <--> V3 with non-existent node")
+        except Exception as e:
+            print("Add edge with non-existent node error:", e)      #expected output
+
+        
     """
     @staticmethod
     def test_social_network():
