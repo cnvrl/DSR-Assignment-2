@@ -73,6 +73,32 @@ class HarnessClass():
         except Exception as e:
             print(f"Actual: {e} - Status: Edge test --> FAIL")
 
+        try:
+            HarnessClass.n = Node(1, "Minna Whittaker", datetime.date(1980, 6, 15), "Majura")
+            HarnessClass.n2 = Node(2, "Gillian Garnett", datetime.date(1994, 11, 27), "Majura")
+            HarnessClass.n3 = Node(3, "Stephen Ernest", datetime.date(2026, 11, 1), "Canberra")
+            print("Node creation test --> PASS")
+            print(f"Node 1: {HarnessClass.n}")
+            print(f"Node 2: {HarnessClass.n2}")
+            print(f"Node 3: {HarnessClass.n3}")
+        except Exception as e:
+            print(f"Node creation test --> FAIL ({e})")
+
+        try:
+            edge = Edge(HarnessClass.n2)
+            print(f"Edge string: {edge}")
+            if edge.friend.get_name() == "Gillian Garnett":
+                print("Edge linking test --> PASS")
+            else:
+                print("Edge linking test --> FAIL")
+        except Exception as e:
+            print(f"Edge test --> FAIL ({e})")
+
+        try:
+            HarnessClass.n.adj[HarnessClass.n2.get_id()] = Edge(HarnessClass.n2)
+            print(f"Adjacency mapping test --> PASS: {HarnessClass.n.adj}")
+        except Exception as e:
+            print(f"Adjacency mapping test --> FAIL ({e})")
     @staticmethod
     def test_task2():
         """
@@ -80,6 +106,28 @@ class HarnessClass():
         """
         print(HarnessClass.n2.__hash__())
         print(HarnessClass.n2 == HarnessClass.n)
+
+        try:
+            # Duplicate node
+            n_duplicate = Node(1, "Minna Whittaker", datetime.date(1980, 6, 15), "Majura")
+            print(f"Hash of original: {hash(HarnessClass.n)}")
+            print(f"Hash of duplicate: {hash(n_duplicate)}")
+
+            if hash(HarnessClass.n) == hash(n_duplicate):
+                print("Hash comparison test --> PASS")
+            else:
+                print("Hash comparison test --> FAIL")
+
+            if HarnessClass.n == n_duplicate:
+                print("Equality test --> PASS")
+            else:
+                print("Equality test --> FAIL")
+
+            node_set = {HarnessClass.n, HarnessClass.n2, HarnessClass.n3, n_duplicate}
+            print(f"Set length (should be 3): {len(node_set)}")
+            print("Set uniqueness test --> PASS" if len(node_set) == 3 else "Set uniqueness test --> FAIL")
+        except Exception as e:
+                print(f"Hashing/equality test --> FAIL ({e})")
 
     @staticmethod
     def test_task3():
