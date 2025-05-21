@@ -13,6 +13,7 @@ class SocialNetwork(SocialNetworkInterface):
     - Reading and processing data from files
     - Suggesting friends
     - Finding mutual friends
+    - Reminding birthday events
     """
 
     def __init__(self):
@@ -67,3 +68,36 @@ class SocialNetwork(SocialNetworkInterface):
         neighbors_y = self.sn.get_neighbors(y)
         mutual = neighbors_x.intersection(neighbors_y)
         return ", ".join(sorted([n.get_name() for n in mutual]))
+
+    def remind_bd_events(self, current_person: Node) -> str:
+        today = datetime.date.today()
+        pq = PriorityQueue()
+
+        def birthday_delta(friend):
+            dob = friend.get_date_ob()
+            next_birthday = dob.replace(year=today.year)
+            if next_birthday < today:
+                next_birthday = next_birthday.replace(year=today.year + 1)
+            delta = next_birthday - today
+            return delta
+
+        for friend in self.sn.get_neighbors(current_person):
+            delta = birthday_delta(friend)
+            pq.put((delta.days, friend))
+
+        result = [f"Hey {current_person.get_name()}:->"]
+        while not pq.empty():
+            days, friend = pq.get()
+            dob = friend.get_date_ob()
+            next_birthday = dob.replace(year=today.year)
+            if next_birthday < today:
+                next_birthday = next_birthday.replace(year=today.year + 1)
+            delta = next_birthday - today
+
+            years = delta.days // 365
+            months = (delta.days % 365) // 30
+            days_left = (delta.days % 365) % 30
+
+            result.append(f"{friend.get_name()} has their birthday after {years} Year, {months} Months, {days_left} days")
+
+        return "\n".join(result)

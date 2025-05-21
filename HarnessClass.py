@@ -2,7 +2,8 @@ import datetime
 from Node import Node
 from Node import Edge
 from Graph import Graph
-#from SocialNetwork import SocialNetwork
+from SocialNetwork import SocialNetwork
+
 
 class HarnessClass():
     """
@@ -40,7 +41,7 @@ class HarnessClass():
         print(" ---- Testing graph ----")
         HarnessClass.test_task3()
         print(" ------*****------ Task 3 ends ------*****------\n\n")
-        """
+        
         # Testing Task 4-6
         print(" ------*****------ Task 4-6 begins ------*****------")
         HarnessClass.test_social_network()
@@ -51,7 +52,7 @@ class HarnessClass():
               "- naming conventions\n"
               "- python docstrings\n"
               "- documentation\n")
-        """
+        
     @staticmethod
     def test_task1():
         """
@@ -224,7 +225,7 @@ class HarnessClass():
 
         # Test remind_bd_events
         try:
-            print(f"Actual: {driver.remind_bd_events(driver.sn.node_list[1])}\t")
+            print(f"Actual: {driver.remind_bd_events(driver.sn.node_list[1])}\t") #which person youre reminding
         except Exception as e:
             print(e)
 
