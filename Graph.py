@@ -25,6 +25,7 @@ class Graph:
         if to_node.get_id() not in from_node.adj:
             from_node.adj[to_node.get_id()] = Edge(to_node)
             to_node.adj[from_node.get_id()] = Edge(from_node)
+
         else:
             raise Exception("Edge already exists between nodes.")
 
@@ -64,11 +65,3 @@ class Graph:
             line = f"{node.get_name()}: <--> {'    '.join(friends)}"
             result.append(line)
         return "\n".join(result)
-    
-
-def main():
-    g = Graph()
-    print(g)
-
-if __name__ == "__main__":
-    main()
