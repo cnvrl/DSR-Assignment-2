@@ -2,7 +2,8 @@ import datetime
 from Node import Node
 from Node import Edge
 from Graph import Graph
-#from SocialNetwork import SocialNetwork
+from SocialNetwork import SocialNetwork
+
 
 class HarnessClass():
     """
@@ -40,7 +41,7 @@ class HarnessClass():
         print(" ---- Testing graph ----")
         HarnessClass.test_task3()
         print(" ------*****------ Task 3 ends ------*****------\n\n")
-        """
+        
         # Testing Task 4-6
         print(" ------*****------ Task 4-6 begins ------*****------")
         HarnessClass.test_social_network()
@@ -51,7 +52,7 @@ class HarnessClass():
               "- naming conventions\n"
               "- python docstrings\n"
               "- documentation\n")
-        """
+        
     @staticmethod
     def test_task1():
         """
@@ -196,39 +197,41 @@ class HarnessClass():
             print("Add edge with non-existent node error:", e)      #expected output
 
         
-    """
     @staticmethod
     def test_social_network():
-        
-        Testing Task 4-6: SocialNetwork functionality.
-
+        print("---- Testing Social Network Methods for Task 4 ----")
         try:
-            driver = SocialNetwork()
-            print(driver.sn)
-            neighbors = driver.sn.get_neighbors(driver.sn.node_list[1])
+            driver = SocialNetwork()  # process_file is called in the constructor
         except Exception as e:
-            print(e)
+            print("Error creating SocialNetwork:", e)
+            return
 
         # Test suggest_friends
         try:
-            friends_of_friends = driver.suggest_friends(driver.sn.node_list[1])
+            current = driver.sn.node_list[1]  # Change this ID as needed
+            suggestions = driver.suggest_friends(current)
+            print(f"Suggested friends for {current.get_name()} (same suburb, friends of friends):")
+            for s in suggestions:
+                print(f"  - {s.get_name()} ({s.get_suburb()})")
         except Exception as e:
-            print(e)
+            print("Error suggesting friends:", e)
 
         # Test get_mutual_friends
         try:
-            mutual_friends = driver.get_mutual_friends(
-                driver.sn.node_list[1], driver.sn.node_list[4]
-            )
+            x = driver.sn.node_list[1]  # Adjust as needed
+            y = driver.sn.node_list[4]  # Adjust as needed
+            mutual = driver.get_mutual_friends(x, y)
+            print(f"Mutual friends between {x.get_name()} and {y.get_name()}: {mutual}")
         except Exception as e:
-            print(e)
+            print("Error getting mutual friends:", e)
 
-        # Test remind_bd_events
+        # Test birthday reminders (Task 5)
         try:
-            print(f"Actual: {driver.remind_bd_events(driver.sn.node_list[1])}\t")
+            person = driver.sn.node_list[1]
+            print(driver.remind_bd_events(person))
         except Exception as e:
-            print(e)
-"""
+            print("Error showing birthday reminders:", e)
+
 
 # Run the main function
 if __name__ == "__main__":
