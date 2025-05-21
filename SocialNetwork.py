@@ -1,47 +1,69 @@
 import datetime
 from queue import PriorityQueue
-from Node import Node
-from Edge import Edge
+from Node import Node, Edge  # FIX: import Edge from Node instead of Edge.py
 from Graph import Graph
-from Post import Post
 from SocialNetworkInterface import SocialNetworkInterface
 import os
-import re
-
-
-
-"""
-represents accounts and their relationship as a graph
-
-@author Zhongju Wang
-@version Dec 2024
-"""
 
 
 class SocialNetwork(SocialNetworkInterface):
     """
     Represents accounts and their relationships as a graph.
-
     Implements the SocialNetworkInterface to provide functionality for:
     - Reading and processing data from files
     - Suggesting friends
     - Finding mutual friends
-    - Reminding birthday events
     """
 
     def __init__(self):
-        """
-        Constructs a SocialNetwork object by reading data files twice.
-        - The first read adds all nodes.
-        - The second read creates connections (edges) between nodes.
-        """
-        self.sn = Graph()  # Initialize the graph
-        pass
+        self.sn = Graph()
+        self.process_file()
 
-# Main function to create and test the SocialNetwork class
-if __name__ == "__main__":
-    driver = SocialNetwork()
-    # Print the graph structure
-    print(driver.sn)
+    def process_file(self) -> None:
+        path = os.path.join(os.path.dirname(__file__), 'data.txt')
+        all_data = []
 
-    pass
+        # First pass: add nodes
+        with open(path, 'r', encoding='utf-8') as file:
+            for line in file:
+                parts = line.strip().split('\t')
+                if len(parts) != 3:
+                    continue
+                id_str, name, rest = parts
+                id = int(id_str)
+                items = [x.strip() for x in rest.split(',')]
+                dob = datetime.datetime.strptime(items[0], "%Y-%m-%d").date()
+                suburb = items[1]
+                friends = list(map(int, items[2:]))
+                self.sn.add_node(id, name, dob, suburb)
+                all_data.append((id, friends))
+
+        # Second pass: add edges
+        for id, friends in all_data:
+            node = self.sn.node_list.get(id)
+            for friend_id in friends:
+                friend_node = self.sn.node_list.get(friend_id)
+                try:
+                    self.sn.add_edge(node, friend_node)
+                except Exception:
+                    continue  # skip if edge already exists
+
+    def suggest_friends(self, current_person: Node) -> list[Node]:
+        suggestions = set()
+        current_neighbors = self.sn.get_neighbors(current_person)
+        for friend in current_neighbors:
+            friends_of_friend = self.sn.get_neighbors(friend)
+            for candidate in friends_of_friend:
+                if (
+                    candidate.get_id() != current_person.get_id()
+                    and candidate not in current_neighbors
+                    and candidate.get_suburb() == current_person.get_suburb()
+                ):
+                    suggestions.add(candidate)
+        return sorted(list(suggestions), key=lambda n: n.get_id())[:5]
+
+    def get_mutual_friends(self, x: Node, y: Node) -> str:
+        neighbors_x = self.sn.get_neighbors(x)
+        neighbors_y = self.sn.get_neighbors(y)
+        mutual = neighbors_x.intersection(neighbors_y)
+        return ", ".join(sorted([n.get_name() for n in mutual]))

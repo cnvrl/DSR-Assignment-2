@@ -196,12 +196,11 @@ class HarnessClass():
             print("Add edge with non-existent node error:", e)      #expected output
 
         
-    """
     @staticmethod
     def test_social_network():
-        
+        """
         Testing Task 4-6: SocialNetwork functionality.
-
+        """
         try:
             driver = SocialNetwork()
             print(driver.sn)
@@ -228,7 +227,6 @@ class HarnessClass():
             print(f"Actual: {driver.remind_bd_events(driver.sn.node_list[1])}\t")
         except Exception as e:
             print(e)
-"""
 
 # Run the main function
 if __name__ == "__main__":
