@@ -43,15 +43,10 @@ class HarnessClass():
         print(" ------*****------ Task 3 ends ------*****------\n\n")
         
         # Testing Task 4-6
-        print(" ------*****------ Task 4-6 begins ------*****------")
+        print(" ------*****------ Task 4-5 begins ------*****------")
         HarnessClass.test_social_network()
-        print(" ------*****------ Task 4-6 ends ------*****------\n\n")
+        print(" ------*****------ Task 4-5 ends ------*****------\n\n")
 
-        print("Other things to consider:\n"
-              "- testing\n"
-              "- naming conventions\n"
-              "- python docstrings\n"
-              "- documentation\n")
         
     @staticmethod
     def test_task1():
@@ -61,7 +56,7 @@ class HarnessClass():
         try:
             HarnessClass.n = Node(1, "B", datetime.date(2018, 10, 30), "Bonner")
             HarnessClass.n2 = Node(2, "B", datetime.date(2018, 9, 30), "Ford")
-            print(f"{HarnessClass.n.name}, {HarnessClass.n.dob}, {HarnessClass.n.suburb}\t")
+            print(f"{HarnessClass.n.name}, {HarnessClass.n.dob}, {HarnessClass.n.suburb}\t")    #expected output: B, 2018-10-30, Bonner
         except Exception as e:
             print(e)
 
@@ -69,7 +64,7 @@ class HarnessClass():
             edge = Edge(HarnessClass.n2)
             print(f"Actual: {edge.friend.suburb}\t", end="")
             if edge.friend.suburb == "Ford":
-                print("Status: Edge test --> PASS")
+                print("Status: Edge test --> PASS")     #expected output
         except Exception as e:
             print(f"Actual: {e} - Status: Edge test --> FAIL")
 
@@ -78,8 +73,8 @@ class HarnessClass():
         """
         Testing Task 2: hashing and equality.
         """
-        print(HarnessClass.n2.__hash__())
-        print(HarnessClass.n2 == HarnessClass.n)
+        print(HarnessClass.n2.__hash__())       #expected output: 2
+        print(HarnessClass.n2 == HarnessClass.n)    #expected output: False
 
     @staticmethod
     def test_task3():
@@ -126,7 +121,7 @@ class HarnessClass():
         try:
             g.add_edge(v0, v1)
             neighbors = g.get_neighbors(v1)
-            print("Neighbors of V1:", [n.get_name() for n in neighbors])        #expected output: ["V0"]
+            print("Neighbors of V1:", [n.get_name() for n in neighbors])    #expected output: ["V0"]
         except Exception as e:
             print("Get neighbors error:", e)
 
@@ -156,7 +151,7 @@ class HarnessClass():
 
         # Test adding an edge with a non-existent node
         try:
-            g.add_edge(v0, v1)
+            g.add_edge(v0, v3) # type: ignore
             print("Added edge V0 <--> V1 with non-existent node")
         except Exception as e:
             print("Add edge with non-existent node error:", e)      #expected output
@@ -189,13 +184,6 @@ class HarnessClass():
         except Exception as e:
             print("Add node with same ID but different attributes error:", e)
 
-        # Test adding an edge with a non-existent node
-        try:
-            g.add_edge(v0, v3)
-            print("Added edge V0 <--> V3 with non-existent node")
-        except Exception as e:
-            print("Add edge with non-existent node error:", e)      #expected output
-
         
     @staticmethod
     def test_social_network():
@@ -208,7 +196,7 @@ class HarnessClass():
 
         # Test suggest_friends
         try:
-            current = driver.sn.node_list[1]  # Change this ID as needed
+            current = driver.sn.node_list[9]  # Change this ID as needed
             suggestions = driver.suggest_friends(current)
             print(f"Suggested friends for {current.get_name()} (same suburb, friends of friends):")
             for s in suggestions:
@@ -218,16 +206,19 @@ class HarnessClass():
 
         # Test get_mutual_friends
         try:
-            x = driver.sn.node_list[1]  # Adjust as needed
-            y = driver.sn.node_list[4]  # Adjust as needed
+            x = driver.sn.node_list[9]  # Adjust as needed
+            y = driver.sn.node_list[113]  # Adjust as needed
             mutual = driver.get_mutual_friends(x, y)
             print(f"Mutual friends between {x.get_name()} and {y.get_name()}: {mutual}")
         except Exception as e:
             print("Error getting mutual friends:", e)
 
+        print("\n---- Testing remind_bd_events Method for Task 5 ----")
         # Test birthday reminders (Task 5)
+        today = datetime.date.today()   
+        print(f"Today's date: {today}")
         try:
-            person = driver.sn.node_list[1]
+            person = driver.sn.node_list[9]
             print(driver.remind_bd_events(person))
         except Exception as e:
             print("Error showing birthday reminders:", e)
