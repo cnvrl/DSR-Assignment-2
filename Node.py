@@ -117,6 +117,7 @@ class Edge:
     def __init__(self, friend: Node):
         """
         Construct a new edge with the supplied friend node.
+        
         :param friend: The friend node connected by this edge
         """
         self.id = friend.id
@@ -125,16 +126,14 @@ class Edge:
     def __str__(self):
         """
         Get a string representation of the edge.
-
         :return: String representation of the edge
         """
-        if self.friend is None:
-            return f"friend= {{{self.friend.id}, {self.friend.name}, {self.friend.dob}, {self.friend.suburb}}}"
+        return f"friend= {{{self.friend.id}, {self.friend.name}, {self.friend.dob}, {self.friend.suburb}}}"
 
 
 def main() -> None:
     """
-    Main function to create and test the Node class. This is only for in-program testing.
+    Main function to test the Node and Edge classes.
     """
     n1 = Node(1, "Minna Whittaker", date(1980, 6, 15), "Majura")
     n2 = Node(2, "Gillian Garnett", date(1994, 11, 27), "Majura")
@@ -148,8 +147,9 @@ def main() -> None:
     print(e1)
 
     node_set = {n1, n2, n3}
-    print(len(node_set)) 
+    print(len(node_set))  # Should be 3 if hash/eq work
  
 
+# Main function to create and test the Node class
 if __name__ == "__main__":
     main()
