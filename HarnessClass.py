@@ -18,7 +18,7 @@ class HarnessClass():
     n2 = None
     n3 = None
     n4 = None
-
+    n5 = None
     @staticmethod
     def main():
         """
@@ -53,31 +53,32 @@ class HarnessClass():
         """
         Testing Task 1: basic operations in the Node and Edge classes.
         """
-        try:
-            HarnessClass.n = Node(1, "B", datetime.date(2018, 10, 30), "Bonner")
-            HarnessClass.n2 = Node(2, "B", datetime.date(2018, 9, 30), "Ford")
-            print(f"{HarnessClass.n.name}, {HarnessClass.n.dob}, {HarnessClass.n.suburb}\t")    #expected output: B, 2018-10-30, Bonner
-        except Exception as e:
-            print(e)
-
-        try:
-            edge = Edge(HarnessClass.n2)
-            print(f"Actual: {edge.friend.suburb}\t", end="")
-            if edge.friend.suburb == "Ford":
-                print("Status: Edge test --> PASS")     #expected output
-        except Exception as e:
-            print(f"Actual: {e} - Status: Edge test --> FAIL")
-
+    
         try:
             HarnessClass.n = Node(1, "Minna Whittaker", datetime.date(1980, 6, 15), "Majura")
             HarnessClass.n2 = Node(2, "Gillian Garnett", datetime.date(1994, 11, 27), "Majura")
-            HarnessClass.n3 = Node(3, "Stephen Ernest", datetime.date(2026, 11, 1), "Canberra")
+            HarnessClass.n3 = Node(3, "Stephen Ernest", datetime.date(2006, 11, 1), "Canberra Central")
             print("Node creation test --> PASS")
             print(f"Node 1: {HarnessClass.n}")
             print(f"Node 2: {HarnessClass.n2}")
             print(f"Node 3: {HarnessClass.n3}")
         except Exception as e:
             print(f"Node creation test --> FAIL ({e})")
+
+        try:
+            HarnessClass.n4 = Node(1, "B", datetime.date(2018, 10, 30), "Bonner")
+            HarnessClass.n5 = Node(2, "B", datetime.date(2018, 9, 30), "Ford")
+            print(f"{HarnessClass.n4.name}, {HarnessClass.n4.dob}, {HarnessClass.n4.suburb}\t")
+        except Exception as e:
+            print(e)
+
+        try:
+            edge = Edge(HarnessClass.n5)
+            print(f"Actual: {edge.friend.suburb}\t", end="")
+            if edge.friend.suburb == "Ford":
+                print("Status: Edge test --> PASS")
+        except Exception as e:
+            print(f"Actual: {e} - Status: Edge test --> FAIL")
 
         try:
             edge = Edge(HarnessClass.n2)
@@ -103,7 +104,6 @@ class HarnessClass():
         print(HarnessClass.n2 == HarnessClass.n)    #expected output: False
 
         try:
-            # Duplicate node
             n_duplicate = Node(1, "Minna Whittaker", datetime.date(1980, 6, 15), "Majura")
             print(f"Hash of original: {hash(HarnessClass.n)}")
             print(f"Hash of duplicate: {hash(n_duplicate)}")
