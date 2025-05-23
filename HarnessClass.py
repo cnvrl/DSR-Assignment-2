@@ -100,8 +100,8 @@ class HarnessClass():
         """
         Testing Task 2: hashing and equality.
         """
-        print(HarnessClass.n2.__hash__())       #expected output: 2
-        print(HarnessClass.n2 == HarnessClass.n)    #expected output: False
+        print(HarnessClass.n2.__hash__())       
+        print(HarnessClass.n2 == HarnessClass.n) 
 
         try:
             n_duplicate = Node(1, "Minna Whittaker", datetime.date(1980, 6, 15), "Majura")
@@ -120,7 +120,10 @@ class HarnessClass():
 
             node_set = {HarnessClass.n, HarnessClass.n2, HarnessClass.n3, n_duplicate}
             print(f"Set length (should be 3): {len(node_set)}")
-            print("Set uniqueness test --> PASS" if len(node_set) == 3 else "Set uniqueness test --> FAIL")
+            if len(node_set) == 3:
+                print("Set uniqueness test --> PASS")
+            else:
+                print("Set uniqueness test --> FAIL")
         except Exception as e:
                 print(f"Hashing/equality test --> FAIL ({e})")
 
