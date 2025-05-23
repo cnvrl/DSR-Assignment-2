@@ -1,6 +1,5 @@
 import datetime
-from Node import Node
-from Node import Edge
+from Node import Node, Edge
 from Graph import Graph
 from SocialNetwork import SocialNetwork
 
@@ -238,6 +237,9 @@ class HarnessClass():
         
     @staticmethod
     def test_social_network():
+        """
+        Testing Task 4-5: the SocialNetwork class.
+        """
         print("---- Testing Social Network Methods for Task 4 ----")
         try:
             driver = SocialNetwork()  # process_file is called in the constructor
@@ -265,6 +267,7 @@ class HarnessClass():
             print("Error getting mutual friends:", e)
 
         print("\n---- Testing remind_bd_events Method for Task 5 ----")
+
         # Test birthday reminders (Task 5)
         today = datetime.date.today()   
         print(f"Today's date: {today}")
@@ -277,4 +280,7 @@ class HarnessClass():
 
 # Run the main function
 if __name__ == "__main__":
+    """
+    Main function to run the test harness.
+    """
     HarnessClass.main()

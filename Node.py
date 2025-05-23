@@ -152,4 +152,7 @@ def main() -> None:
 
 # Main function to create and test the Node class
 if __name__ == "__main__":
+    """
+    Run the main function to test the Node and Edge classes.
+    """
     main()

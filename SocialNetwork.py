@@ -1,6 +1,6 @@
 import datetime
 from queue import PriorityQueue
-from Node import Node, Edge  # FIX: import Edge from Node instead of Edge.py
+from Node import Node, Edge 
 from Graph import Graph
 from SocialNetworkInterface import SocialNetworkInterface
 import os
@@ -17,10 +17,16 @@ class SocialNetwork(SocialNetworkInterface):
     """
 
     def __init__(self):
+        """
+        Initializes the social network by creating an empty graph and processing the data file.
+        """
         self.sn = Graph()
         self.process_file()
 
     def process_file(self) -> None:
+        """
+        Reads data from a file and populates the graph with nodes and edges.
+        """
         path = os.path.join(os.path.dirname(__file__), 'data.txt')
         all_data = []
 
@@ -50,6 +56,11 @@ class SocialNetwork(SocialNetworkInterface):
                     continue  # skip if edge already exists
 
     def suggest_friends(self, current_person: Node) -> list[Node]:
+        """
+        Suggests friends for the current person based on their friends' friends.
+        :param current_person: The person for whom to suggest friends.
+        :return: A list of suggested friends.
+        """
         suggestions = set()
         current_neighbors = self.sn.get_neighbors(current_person)
         for friend in current_neighbors:
@@ -64,16 +75,32 @@ class SocialNetwork(SocialNetworkInterface):
         return sorted(list(suggestions), key=lambda n: n.get_id())[:5]
 
     def get_mutual_friends(self, x: Node, y: Node) -> str:
+        """
+        Finds mutual friends between two nodes.
+        :param x: The first node.
+        :param y: The second node.
+        :return: A string of mutual friends' names.
+        """
         neighbors_x = self.sn.get_neighbors(x)
         neighbors_y = self.sn.get_neighbors(y)
         mutual = neighbors_x.intersection(neighbors_y)
         return ", ".join(sorted([n.get_name() for n in mutual]))
 
     def remind_bd_events(self, current_person: Node) -> str:
+        """
+        Reminds the current person of upcoming birthdays of their friends.
+        :param current_person: The person for whom to remind birthdays.
+        :return: A string of upcoming birthdays.
+        """
         today = datetime.date.today()
         pq = PriorityQueue()
 
         def birthday_delta(friend):
+            """
+            Calculate the number of days until the next birthday of a friend.
+            :param friend: The friend whose birthday is to be calculated.
+            :return: A timedelta object representing the difference in days.
+            """
             dob = friend.get_date_ob()
             next_birthday = dob.replace(year=today.year)
             if next_birthday < today:
