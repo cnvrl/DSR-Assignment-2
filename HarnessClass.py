@@ -53,7 +53,7 @@ class HarnessClass():
         """
         Testing Task 1: basic operations in the Node and Edge classes.
         """
-    
+        #Test for Node and Edge classes, making sure a node can be created and linked to another node
         try:
             HarnessClass.n = Node(1, "Minna Whittaker", datetime.date(1980, 6, 15), "Majura")
             HarnessClass.n2 = Node(2, "Gillian Garnett", datetime.date(1994, 11, 27), "Majura")
@@ -64,14 +64,14 @@ class HarnessClass():
             print(f"Node 3: {HarnessClass.n3}")
         except Exception as e:
             print(f"Node creation test --> FAIL ({e})")
-
-        try:
+        # Test for Node
+        try:    
             HarnessClass.n4 = Node(1, "B", datetime.date(2018, 10, 30), "Bonner")
             HarnessClass.n5 = Node(2, "B", datetime.date(2018, 9, 30), "Ford")
             print(f"{HarnessClass.n4.name}, {HarnessClass.n4.dob}, {HarnessClass.n4.suburb}\t")
         except Exception as e:
             print(e)
-
+        # Test for Edge
         try:
             edge = Edge(HarnessClass.n5)
             print(f"Actual: {edge.friend.suburb}\t", end="")
@@ -79,7 +79,7 @@ class HarnessClass():
                 print("Status: Edge test --> PASS")
         except Exception as e:
             print(f"Actual: {e} - Status: Edge test --> FAIL")
-
+        #Test for Edge 
         try:
             edge = Edge(HarnessClass.n2)
             print(f"Edge string: {edge}")
@@ -89,7 +89,7 @@ class HarnessClass():
                 print("Edge linking test --> FAIL")
         except Exception as e:
             print(f"Edge test --> FAIL ({e})")
-
+        #Test for Adjacency mapping
         try:
             HarnessClass.n.adj[HarnessClass.n2.get_id()] = Edge(HarnessClass.n2)
             print(f"Adjacency mapping test --> PASS: {HarnessClass.n.adj}")
@@ -102,7 +102,7 @@ class HarnessClass():
         """
         print(HarnessClass.n2.__hash__())       
         print(HarnessClass.n2 == HarnessClass.n) 
-
+        #Test for hashing and equality through duplicate nodes
         try:
             n_duplicate = Node(1, "Minna Whittaker", datetime.date(1980, 6, 15), "Majura")
             print(f"Hash of original: {hash(HarnessClass.n)}")
